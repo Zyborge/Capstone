@@ -1,0 +1,43 @@
+#container {
+  /* Your custom CSS styles for the container */
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 1000px;
+}
+
+#container label {
+  /* Styles for the labels */
+  font-weight: bold;
+  color: #333;
+  margin-right: 20px;
+}
+
+#container .btn-group {
+  /* Styles for the button group */
+  margin-top: 10px;
+}
+
+#container .btn-outline-danger {
+  
+}
+
+#container .form-control {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+#container .textarea {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+
+}
+
+#container button[type="submit"] {
+
+}
+
+#responseMessage {
+
+}
