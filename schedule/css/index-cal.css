@@ -1,0 +1,197 @@
+:root {
+    --bs-success-rgb: 71, 222, 152 !important;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #4CAF50 !important; 
+    font-family: Apple Chancery, cursive;
+}
+
+.btn-info.text-light:hover,
+.btn-info.text-light:focus {
+    background: BLUE;
+}
+
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-color: #ededed !important;
+    border-style: solid;
+    border-width: 1px !important;
+    text-decoration: none;
+}
+#page-container {
+    margin-top:100px;
+    height: auto;
+    width: auto;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* Set the background color with an alpha value */
+    backdrop-filter: blur(10px); /* Apply a blur effect to create the glass effect */
+    }
+.card-body{
+     background-color: rgba(255, 255, 255, 0.5); /* Set the background color with an alpha value */
+    backdrop-filter: blur(10px); /* Apply a blur effect to create the glass effect */
+}
+/* Custom CSS for the modern form */
+.modern-form {
+background-color: transparent;
+padding: 20px;
+}
+
+.modern-form .form-group {
+margin-bottom: 15px;
+}
+
+.modern-form label {
+font-weight: bold;
+color: #333;
+display: block;
+margin-bottom: 5px;
+}
+
+.modern-form input[type="text"],
+.modern-form textarea,
+.modern-form select {
+width: 100%;
+padding: 4px;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+.modern-form button[type="submit"],
+.modern-form button[type="reset"] {
+padding: 8px 15px;
+margin-right: 10px;
+border: none;
+border-radius: 4px;
+font-weight: bold;
+cursor: pointer;
+}
+
+.modern-form button[type="submit"] {
+background-color: #007bff;
+color: #fff;
+}
+
+.modern-form button[type="reset"] {
+background-color: #ccc;
+color: #333;
+}
+/* Style for the custom Bootstrap modal */
+.custom-popup .modal-dialog {
+    max-width: 400px;
+  }
+  
+  .custom-popup .modal-body {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .custom-popup .modal-body .icon-class {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .custom-popup .modal-body span {
+    font-size: 18px;
+  }
+  
+  .custom-popup .modal-footer {
+    justify-content: center;
+    border-top: none;
+    padding: 10px;
+  }
+  
+  /* Style for the modal close button */
+  .custom-popup .modal-footer .btn-secondary {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  /* Add your custom styles for the alert types here */
+  .custom-popup .alert-success {
+    background-color: #dff0d8;
+    color: #3c763d;
+  }
+  
+  .custom-popup .alert-danger {
+    background-color: #f2dede;
+    color: #a94442;
+  }
+  .bxs-check-circle:before {
+    font-size: 100px;
+    }  
+    .bxs-error-circle:before {
+      font-size: 100px;
+      } 
+    /* CSS code */
+.delete-popup .modal-content {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.delete-popup .modal-body {
+  text-align: center;
+  padding: 40px;
+}
+
+.delete-popup .modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.delete-popup .modal-body .icon-class {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.delete-popup .modal-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  border-top: none;
+  padding-top: 0;
+}
+
+.delete-popup .btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.delete-popup .btn-secondary:hover {
+  background-color: #d0d0d0;
+}
+
+.delete-popup .btn-danger {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+}
+
+.delete-popup .btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+/* Additional styles for responsiveness */
+@media (max-width: 767px) {
+  .delete-popup .modal-dialog {
+    max-width: 90%;
+  }
+}
