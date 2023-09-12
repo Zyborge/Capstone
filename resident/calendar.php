@@ -74,7 +74,7 @@
     <label for="end-time">End Time:</label>
     <input type="time" id="end-time" name="end-time" required>
   </div>
-  <button type="submit" id="submit-button" data-bs-toggle="tooltip" data-bs-placement="top" title="Please fill in all required fields">
+  <button type="submit" id="submit-button">
   <i class='bx bx-check'></i>
   <span>Submit</span>
 </button>
@@ -93,6 +93,9 @@
 </div>
 
   </div>
+  <?php 
+    include('footer.php');
+    ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
   const bookingForm = document.getElementById("booking-form");
@@ -322,6 +325,27 @@ endTimeInput.addEventListener("input", function() {
 
   
 </script>
+
+<script>
+    // Get the select element
+    var eventTypeSelect = document.getElementById("event-type");
+
+    // Store the default value
+    var defaultValue = eventTypeSelect.value;
+
+    // Add an event listener to monitor changes
+    eventTypeSelect.addEventListener("change", function() {
+        if (eventTypeSelect.value !== defaultValue) {
+            // Reset the dropdown to its default value
+            eventTypeSelect.value = defaultValue;
+            alert("You are not allowed to change the venue.");
+        }
+    });
+</script>
+
+
+
+
 
 
 

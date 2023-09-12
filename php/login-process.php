@@ -52,12 +52,12 @@
           // Return success response
           echo json_encode(['status' => 'success']);
         } else if ($result['status'] == 'Pending') {
-          // Return error response
-          $message = 'Your account is not yet approved. Please wait for the admin to approve your registration.';
+          // Debugging: Check the status value
+          $message = 'Your account is not yet approved. Please wait for the admin to approve your registration. Status: ' . $result['status'];
           echo json_encode(['status' => 'error', 'message' => $message]);
         } else if ($result['status'] == 'Rejected') {
-          // Return error response
-          $message = 'Your account is rejected. Please contact the admin for more information.';
+          // Debugging: Check the status value
+          $message = 'Your account is rejected. Please contact the admin for more information. Status: ' . $result['status'];
           echo json_encode(['status' => 'error', 'message' => $message]);
         }
       } else {
@@ -65,8 +65,8 @@
         echo json_encode(['status' => 'error', 'message' => 'Invalid email or password.']);
       }
     } else {
-      // Return error response
-      echo json_encode(['status' => 'error', 'message' => 'Invalid email or password.']);
+      // Debugging: Check if the query is returning any rows
+      echo json_encode(['status' => 'error', 'message' => 'No user found with this email.']);
     }
   } catch(PDOException $e) {
     // Return error response with detailed error information

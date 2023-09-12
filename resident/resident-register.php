@@ -23,10 +23,10 @@
     <div class="container">
     <p class="welcome-text">Sign Up</p>
 
-    <form class="registration-form" id="registration-form" method="POST" action="../php/register-process.php">
+    <form class="registration-form" id="registration-form" method="POST" action="../php/register-process.php" novalidate>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" name="name" required>
+            <input type="text" id="name" class="form-control" name="name" maxlenght="250" required>
             <div class="invalid-feedback" data-toggle="tooltip" data-placement="right" title=""></div>
         </div>
 
@@ -37,14 +37,21 @@
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
-            <div class="password-input-wrapper">
-                <input type="password" id="password" class="form-control" name="password" required>
-                <i id="toggleIcon" class="toggle-icon fas fa-eye" onclick="togglePasswordVisibility()"></i>
-            </div>
-            <div class="invalid-feedback" data-toggle="tooltip" data-placement="right" title=""></div>
-            <div id="password-strength"></div>
-        </div>
+    <label for="password">Password</label>
+    <div class="password-input-wrapper">
+        <input type="password" id="password" class="form-control" name="password" maxlength="255" required>
+        <i id="toggleIcon" class="toggle-icon fas fa-eye" onclick="togglePasswordVisibility()"></i>
+    </div>
+    <div class="invalid-feedback" data-toggle="tooltip" data-placement="right" title=""></div>
+    <div id="password-strength"></div>
+</div>
+
+<div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" class="form-control" name="confirmPassword" maxlength="255" required>
+    <div id="password-error" style="color: red;"></div>
+</div>
+
 
 
         <div class="form-group">
@@ -57,56 +64,20 @@
         </div>
         <div class="form-group">
     <div class="row mt-3">
-        <div class="col">
+    <div class="col-md-3 mb-1">
             <label for="block">Block</label>
-            <input type="text" id="block" class="form-control" name="block" required>
+            <input type="text" id="block" class="form-control" name="block" maxlength="2" required>
         </div>
-        <div class="col">
+        <div class="col-md-3 mb-1">
             <label for="lot">Lot</label>
-            <input type="text" id="lot" class="form-control" name="lot" required>
+            <input type="text" id="lot" class="form-control" name="lot" maxlength="2" required>
         </div>
-        <div class="col">
+        <div class="col-md-3 mb-1">
             <label for="street">Street</label>
             <select id="street" class="form-control" name="street" required>
-                <option value="" selected disabled>Select Street</option>
-                <option value="ANDROMEDA">ANDROMEDA</option>
-                <option value="ASTEROID">ASTEROID</option>
-                <option value="ASTRONOMY">ASTRONOMY</option>
-                <option value="ATMOSPHERE">ATMOSPHERE</option>
-                <option value="BUTTERCUP">BUTTERCUP</option>
-                <option value="CADILLAC">CADILLAC</option>
-                <option value="COMETS">COMETS</option>
-                <option value="CONSTELLATION">CONSTELLATION</option>
-                <option value="COSMOS">COSMOS</option>
-                <option value="ECLIPSE">ECLIPSE</option>
-                <option value="EVOLUTION">EVOLUTION</option>
-                <option value="GRAVITY">GRAVITY</option>
-                <option value="HALO/NEBULA">HALO/NEBULA</option>
-                <option value="JUPITER">JUPITER</option>
-                <option value="LUNAR">LUNAR</option>
-                <option value="MERCURY">MERCURY</option>
-                <option value="METEORS">METEORS</option>
-                <option value="MILKYWAY">MILKYWAY</option>
-                <option value="NEPTUNE/ZURICH">NEPTUNE/ZURICH</option>
-                <option value="ORBIT">ORBIT</option>
-                <option value="ORION">ORION</option>
-                <option value="PLASMA">PLASMA</option>
-                <option value="PLUTO">PLUTO</option>
-                <option value="ROTATION">ROTATION</option>
-                <option value="SATURN">SATURN</option>
-                <option value="SOLAR">SOLAR</option>
-                <option value="SPHERE">SPHERE</option>
-                <option value="SPINAL">SPINAL</option>
-                <option value="STARBURST">STARBURST</option>
-                <option value="STARGAZER">STARGAZER</option>
-                <option value="STELLARS">STELLARS</option>
-                <option value="SUPERNOVA">SUPERNOVA</option>
-                <option value="SUTTER">SUTTER</option>
-                <option value="SUTTER EXT">SUTTER EXT</option>
-                <option value="UNIVERSE">UNIVERSE</option>
-                <option value="VENUS">VENUS</option>
-                <option value="MERCURY P8">MERCURY P8</option>
-                <option value="MARS">MARS</option>
+                <?PHP 
+                include('../crud/street.php')
+                ?>
             </select>
         </div>
     </div>
@@ -133,7 +104,11 @@
 
         // Clear previous error messages
         $('.invalid-feedback').empty().hide();
-
+        if (!checkPasswordMatch()) {
+            // Enable the button
+            $('#register-btn').prop('disabled', false);
+            return; // Don't proceed with form submission
+        }
         // Get form data
         var formData = $('#registration-form').serialize();
 
@@ -171,6 +146,32 @@
 });
 </script>
 <script>
+    // Function to check if the password and confirm password fields match
+    function checkPasswordMatch() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var errorDiv = document.getElementById("password-error");
+
+        if (password !== confirmPassword) {
+            errorDiv.innerHTML = "Password and Confirm Password do not match!";
+            errorDiv.style.color = "red";
+            return false; // Return false to prevent form submission
+        } else {
+            errorDiv.innerHTML = ""; // Clear any previous error message
+            return true; // Passwords match, allow form submission
+        }
+    }
+
+    // Add an event listener to the confirm password field to check for match
+    document.getElementById("confirmPassword").addEventListener("keyup", checkPasswordMatch);
+</script>
+
+
+
+
+
+
+<script>
     function togglePasswordVisibility() {
         var passwordInput = document.getElementById("password");
         var toggleIcon = document.getElementById("toggleIcon");
@@ -185,6 +186,62 @@
             toggleIcon.classList.add("fa-eye");
         }
     }
+</script>
+<script>
+    $(document).ready(function() {
+        // Handle form submission
+        $('#registration-form').submit(function(event) {
+            // Clear previous error messages
+            $('.invalid-feedback').empty().hide();
+
+            if (!validateForm()) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+
+        function validateForm() {
+            var valid = true;
+
+            // Validate Name
+            var name = $('#name').val().trim();
+            if (name.length <= 5) {
+                $('#name').addClass('is-invalid');
+                $('#name').siblings('.invalid-feedback').text('Name must be more than 5 characters.');
+                valid = false;
+            }
+
+            // Validate Email
+            var email = $('#email').val().trim();
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                $('#email').addClass('is-invalid');
+                $('#email').siblings('.invalid-feedback').text('Please enter a valid email address.');
+                valid = false;
+            }
+
+            // Validate Password
+            var password = $('#password').val().trim();
+            var passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                $('#password').addClass('is-invalid');
+                $('#password').siblings('.invalid-feedback').text('Password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character.');
+                valid = false;
+            }
+
+            // Validate Confirm Password
+            var confirmPassword = $('#confirmPassword').val().trim();
+            if (password !== confirmPassword) {
+                $('#confirmPassword').addClass('is-invalid');
+                $('#password').addClass('is-invalid');
+                $('#password').siblings('.invalid-feedback').text('Password and Confirm Password do not match.');
+                valid = false;
+            }
+
+            // You can add more validations for other fields as needed
+
+            return valid;
+        }
+    });
 </script>
 <script>
     $(document).ready(function() {

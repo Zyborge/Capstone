@@ -27,7 +27,7 @@
       <li><a href="../resident/home.php" class="active">Home</a></li>
       <li><a href="../schedule/index.php">Calendar</a></li>
       <li class="nav-item dropdown" id="paymentDropdown">
-  <a class="nav-link dropdown-toggle" href="../resident/pay-monthly.php" id="navbarDropdownMenuLink" role="button" aria-haspopup="true" aria-expanded="false">
+  <a class="nav-link dropdown-toggle" href="../resident/month.php" id="navbarDropdownMenuLink" role="button" aria-haspopup="true" aria-expanded="false">
     Payment
   </a>
   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -40,7 +40,8 @@
     ';
   } else {
     // User is not logged in, display only the "Home" link
-    echo '<li><a href="../resident/home.php" class="active"> Home</a></li>
+    echo '      <li><a href="../resident/home.php" class="active">Home</a></li>
+
     <li><a href="../schedule/public-calendar.php">Calendar</a></li>
     <li><a href="../resident/about-us.php"> About us</a></li>
     ';
@@ -75,7 +76,6 @@
 
             </div>
         </header>
-        <div class="div"></div>
 
     <script src="../js/nav.js"></script>
 </body>

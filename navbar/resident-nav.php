@@ -76,7 +76,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="home.php">Home</a>
+            <a class="nav-link" href="../resident/home.php">Home</a>
           </li>
          
         </ul>

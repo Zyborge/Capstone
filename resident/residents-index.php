@@ -1,5 +1,3 @@
-<?php session_start()?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,27 +22,83 @@
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <link href="../css/home.css" rel="stylesheet">
+  <link href="assets/css/home.css" rel="stylesheet">
 </head>
 
 <body>
-<?php include('../navbar/nav.php'); ?>
+  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/img/phase5.png" alt="Your Brand Image" style="width: 50px; height: 50px;">
+      </a>
 
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link js-scroll-trigger" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <main>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-       
         <div class="carousel-item active">
-          <img class="bd-placeholder-img" src="../png/3.png" alt="Your Image Description">
+          <img class="bd-placeholder-img" src="assets/img/Rect Light.svg" alt="Your Image Description">
+
+
+          <div class="container">
+            <div class="carousel-caption text-left">
+              <h1>Example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
+                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            </div>
+          </div>
         </div>
         <div class="carousel-item">
-          <img class="bd-placeholder-img" src="../png/4.png" alt="Your Image Description">
+          <img class="bd-placeholder-img" src="assets/img/Colored Shapes.svg" alt="Your Image Description">
 
+
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
+                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="bd-placeholder-img" src="assets/img/Moon.svg" alt="Your Image Description">
+
+
+          <div class="container">
+            <div class="carousel-caption text-right">
+              <h1>One more for good measure.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
+                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            </div>
+          </div>
         </div>
       </div>
       <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
@@ -89,7 +143,7 @@
     ?>
 <div class="announcement-card">
   <div class="text-center"> <!-- Center the image and text -->
-    <img src="../png/phase5.png" alt="HOA Announcement" class="bd-placeholder-img rounded-circle announcement-image">
+    <img src="assets/img/phase5.png" alt="HOA Announcement" class="bd-placeholder-img rounded-circle announcement-image">
   </div>
   <h2 class="text-center"><?php echo $row["title"]; ?></h2>
   <div class="announcement-content text-center">
@@ -161,7 +215,7 @@ if ($result->num_rows > 0) {
         echo '<p class="lead">' . $row['content'] . '</p>';
         echo '</div>';
         echo '<div class="col-md-5' . ($textOnLeft ? ' order-md-1' : '') . ' animate-image">'; // Add order class for image
-        echo '<img src="../png/3.jpg" alt="' . $row['title'] . '" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto">';
+        echo '<img src="assets/img/3.jpg" alt="' . $row['title'] . '" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto">';
         echo '</div>';
         echo '</div>';
         

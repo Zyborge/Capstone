@@ -23,11 +23,18 @@ if (!isset($_SESSION['resident_id'])) {
 
 $residentId = $_SESSION['resident_id'];
 
-// Fetch payment history from the database
+// Define the number of records per page and current page
+$recordsPerPage = 10; // Adjust this value as needed
+$currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+// Calculate the OFFSET for SQL query
+$offset = ($currentPage - 1) * $recordsPerPage;
+
+// Fetch payment history from the database with pagination
 $paymentHistory = [];
-$sql = "SELECT * FROM pending_gcashpayment WHERE resident_id = ? ORDER BY payment_date DESC";
+$sql = "SELECT * FROM pending_gcashpayment WHERE resident_id = ? ORDER BY payment_date DESC LIMIT ? OFFSET ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $residentId);
+$stmt->bind_param("iii", $residentId, $recordsPerPage, $offset);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -38,11 +45,18 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Payment History</title>
+
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Bootstrap Site</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+   
     <style>
         /* Custom CSS for Payment History page */
         body {
@@ -89,6 +103,7 @@ $conn->close();
 
 <?php include('../navbar/nav.php'); ?>
 
+
 <div class="container mt-4">
     <h1>Payment History</h1>
     <table class="table table-striped">
@@ -118,8 +133,8 @@ $conn->close();
         } elseif ($paymentTerm === 'quarterly') {
             $lastPaymentYear = date('Y', strtotime($endDate));
             $lastPaymentMonth = date('n', strtotime($endDate));
-            $quarterStartMonth = (($lastPaymentMonth - 1) / 3) * 2 ;
-            $quarterEndMonth = $quarterStartMonth + 2;
+            $quarterStartMonth = (int)(($lastPaymentMonth - 1) / 3) * 2;
+            $quarterEndMonth = (int)($quarterStartMonth + 2);            
             $quarterStartMonthName = date('F', mktime(0, 0, 0, $quarterStartMonth, 1, $lastPaymentYear));
             $quarterEndMonthName = date('F', mktime(0, 0, 0, $quarterEndMonth, 1, $lastPaymentYear));
             echo "$quarterStartMonthName-$quarterEndMonthName $lastPaymentYear";

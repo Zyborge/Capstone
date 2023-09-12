@@ -24,13 +24,13 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" autocomplete="off">
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" maxlength="255" autocomplete="off">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group password-toggle" id="divpassword">
                     <span class="input-group-text" id="basic-addon2"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" aria-label="Password" maxlength="255" aria-describedby="basic-addon2">
                     <i class="fas fa-eye toggle-icon" id="toggleIcon" onclick="togglePasswordVisibility()"></i>
                 </div>
             </div>
