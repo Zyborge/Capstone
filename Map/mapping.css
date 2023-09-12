@@ -1,0 +1,168 @@
+#canvas {
+    position: relative;
+    display: inline-block;
+}
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#placeButton {
+  display: none;
+}
+#rotateButton {
+  display: none;
+}
+#map {
+  width: 80%;
+  height: 86vh;
+  position: left;
+  margin-right: auto;
+  cursor: default;
+}
+#popup {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+#mainContainer {
+  display: flex;
+  flex-direction: row;
+  border: solid black 1px;
+}
+#btnContainer {
+  display: flex;
+  flex-direction: column;
+  border: solid black 1px;
+}
+.header {
+  background-color: #D9D9D9;
+  padding: 15px;
+}
+.sidebar {
+  float:left;
+  min-height:100vh;
+  min-width:150px;
+}
+#btnContainer {
+  width: 300px;
+}
+#searchContainer {
+  align-items: center;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+}
+#searchbar {
+  height: 44px;
+  width: 200px;
+  border: solid black 1px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#searchinput{
+  max-width: 154px;
+  border: none;
+}
+.bx-search {
+  margin-left: 10px;
+}
+#filterBtn {
+  border-radius: 10px;
+  border: solid black 1px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+button {
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+  align-items: center;
+  padding: 5px;
+  margin: 5px;
+  max-width: 300px;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#editMapBtn {
+  display: flex;
+  align-items: center;
+}
+#saveEditBtn {
+  align-items: center;
+  position: absolute;
+  bottom: 64px;
+  right: 80px;
+}
+#cancelEditBtn {
+  align-items: center;
+  position: absolute;
+  bottom: 15px;
+  right: 73px;
+}
+#header {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#streetHeader {
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#streetDropdown {
+  font-size: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 280px;
+  margin-bottom: 5px;
+}
+.asterisk {
+  color: red;
+}
+#housesModal {
+  display: none;
+  height: 400px;
+  width: 600px;
+  z-index: 10000;
+  overflow:scroll;
+  position: absolute;
+  margin-left: 20%;
+  margin-right: auto;
+  background-color: rgb(212, 209, 209);
+  font-size: 25px;
+  border: solid black 1px;
+  margin-top: 90px;
+  overflow-x:hidden;
+}
+.residentHouses {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+.bx-home {
+  font-size: 40px;
+}
+#closeModal {
+  max-height: 25px;
+  border: solid black 1px;
+  align-items: center;
+}
