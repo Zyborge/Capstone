@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file (db.php)
-include 'db.php';
+include '../configs/config.php';
 include('../admins/sidebarcontent.php');
 
 // Define the number of records to display per page and get the user's choice
