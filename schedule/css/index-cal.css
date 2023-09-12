@@ -4,41 +4,53 @@
 
 html,
 body {
-    height: 100%;
-    width: 100%;
-    background-color: #4CAF50 !important; 
+ 
+    background-image: url(../backgrounds/bfa.svg);
+    background-size: cover; /* Cover the entire page */
+    background-repeat: no-repeat;
     font-family: Apple Chancery, cursive;
 }
 
 .btn-info.text-light:hover,
 .btn-info.text-light:focus {
-    background: BLUE;
+    background: rgb(75, 75, 194);
 }
 
-table,
-tbody,
-td,
-tfoot,
+/* Improved table design */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
 th,
-thead,
+td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #000000 !important;
+}
+
 tr {
-    border-color: #ededed !important;
-    border-style: solid;
-    border-width: 1px !important;
-    text-decoration: none;
+  border-bottom: 1px solid #000000 !important;
 }
+
+/* Container and card styles */
 #page-container {
-    margin-top:100px;
-    height: auto;
-    width: auto;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.5); /* Set the background color with an alpha value */
-    backdrop-filter: blur(10px); /* Apply a blur effect to create the glass effect */
-    }
-.card-body{
-     background-color: rgba(255, 255, 255, 0.5); /* Set the background color with an alpha value */
-    backdrop-filter: blur(10px); /* Apply a blur effect to create the glass effect */
+  margin-top: 100px;
+  height: auto;
+  width: auto;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent white background */
 }
+
+.card-body {
+  background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent white background */
+}
+
 /* Custom CSS for the modern form */
 .modern-form {
 background-color: transparent;
@@ -138,6 +150,7 @@ color: #333;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+
 .delete-popup .modal-body {
   text-align: center;
   padding: 40px;
@@ -188,6 +201,19 @@ color: #333;
 .delete-popup .btn-danger:hover {
   background-color: #d32f2f;
 }
+    /* Custom CSS for the close button ("x") on the alert */
+    .custom-close-style {
+        font-size: 18px;
+        font-weight: bold;
+        color: #000; /* Change the color as desired */
+        background: none; /* Remove the background */
+        border: none; /* Remove the border */
+    }
+
+    .custom-close-style:hover {
+        color: #ff0000; /* Change the hover color as desired */
+    }
+
 
 /* Additional styles for responsiveness */
 @media (max-width: 767px) {
