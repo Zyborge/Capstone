@@ -1,0 +1,287 @@
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+/* GLOBAL STYLES
+--------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  margin-bottom: 4rem;
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  height: 32rem;
+}
+
+.carousel-item>img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 32rem;
+}
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.marketing h2 {
+  font-weight: 400;
+}
+
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 5rem 0;
+  /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 40em) {
+
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
+  }
+}
+  /* Custom CSS for the navbar */
+  .custom-navbar {
+    background-color: #333; /* Background color */
+    color: #fff; /* Text color */
+}
+
+
+/* Style the navigation links */
+.custom-navbar .nav-link {
+    color: #fff; /* Link text color */
+}
+
+/* Style the active link */
+.custom-navbar .nav-item.active .nav-link {
+    font-weight: bold; /* Make the active link bold */
+}
+.announcement-image {
+  width: 140px;
+  height: 140px;
+}
+
+/* Text Animation */
+ .animate-text {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease-in-out forwards;
+    }
+
+    /* Image Animation */
+    .animate-image {
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideInRight 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+#up-img{
+  height: 40px;
+  width: 40px;
+}
+
+/* CSS for Announcement Container */
+/* Style for the announcement container */
+.announcement-container {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent announcements from wrapping to the next line */
+  overflow-x: auto;
+  padding-bottom: 20px;
+  gap: 20px; /* Add spacing between announcements */
+  justify-content: flex-start; /* Align announcements to the start */
+  align-items: flex-start; /* Align announcements to the top */
+}
+
+/* Style for Individual Announcement Cards */
+.announcement-card {
+  width: 300px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+}
+
+.announcement-card:hover {
+  transform: translateY(-5px); /* Add a slight lift effect on hover */
+}
+
+/* Style adjustments for the title of the announcement cards */
+.announcement-card h2 {
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Style adjustments for the content of the announcement cards */
+.announcement-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 10px 0;
+  flex-grow: 1; /* Allow content to grow within the container */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflowed content */
+}
+
+/* CSS for Read More and Show Less buttons */
+.announcement-card .announcement-content {
+  text-align: center;
+}
+
+/* CSS for Read More and Show Less buttons */
+.announcement-card .announcement-content {
+  text-align: center;
+}
+
+.announcement-card .read-more,
+.announcement-card .show-less {
+  display: inline-block;
+  padding: 5px 10px; /* Reduce padding to make the button smaller */
+  font-size: 12px; /* Reduce font size to make the button smaller */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.announcement-card .read-more:hover,
+.announcement-card .show-less:hover {
+  background-color: #0056b3;
+}
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 30px 0;
+}
+
+.footer h4 {
+  color: #f1c40f;
+  margin-bottom: 15px;
+}
+
+.footer address p {
+  margin: 5px 0;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 10px;
+}
+
+.social-icons li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.social-icons a {
+  color: #000000;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #f1c40f;
+}
+
+
+

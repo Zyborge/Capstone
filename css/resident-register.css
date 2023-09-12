@@ -15,8 +15,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 610px;
-    width: 390px;
+    height: auto;
+    width: 420px;
     background-color: white;
     border-radius: 25px;
     padding: 20px;
@@ -31,9 +31,10 @@ body {
   #toggleIcon {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 15px;
     transform: translateY(-50%);
     cursor: pointer;
+
   }
   
 .container-1 {
@@ -182,7 +183,12 @@ body {
     color: #2E8342;
     font-weight: 500;
 }
-
+#block, #lot{
+    width: 70px;
+}
+#street{
+    width: 120px;
+}
 .a {
     color: #2E8342;
 }

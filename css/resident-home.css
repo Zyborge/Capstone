@@ -17,3 +17,8 @@
     backdrop-filter: blur(10px);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
+.carousel-item img {
+    max-height: 500px; /* Adjust the maximum height as needed */
+    width: 100%;
+    object-fit: fill;
+}

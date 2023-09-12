@@ -6,17 +6,28 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+:root {
+  --primary-bg: #289266; /* Pastel Green */
+  --secondary-bg: #eae6f2; /* Light Gray */
+  --active-bg: #d1d1d1; /* Lighter Gray */
+  --text-color: #333333; /* Dark Gray */
+  --highlight-color: #e74c3c; /* Red (Accent Color) */
+}
+.nav-link.active {
+  background-color: var(--active-bg);
+}
 
 .sidenav {
-    background-color: #f1f1f1;
-    width: 250px;
-    padding: 20px;
-    transition: width 0.3s ease;
-    overflow-y: auto;
-    flex-shrink: 0;
-    position: sticky;
-    height: 100vh;
-  }
+  background-color: var(--primary-bg);
+  width: 250px;
+  padding: 20px;
+  transition: width 0.3s ease;
+  overflow-y: auto;
+  flex-shrink: 0;
+  position: sticky;
+  height: 100vh;
+  color: var(--text-color);
+}
 
 .sidenav.minimized {
   width: 100px;
@@ -158,19 +169,17 @@ align-content: center;
 
 .home-section {
   position: absolute;
-  background: #b8e0d0;
+  background: var(--secondary-bg);
   min-height: 100vh;
   height: 100%;
   top: 0;
   left: 250px;
   width: calc(100% - 250px);
   transition: all 0.3s ease;
-      flex-grow: 1;
-    overflow-y: auto;
-
+  flex-grow: 1;
+  overflow-y: auto;
   z-index: 2;
 }
- 
 
 .sidenav.minimized ~ .home-section {
   left: 100px;

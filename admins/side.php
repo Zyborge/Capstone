@@ -15,27 +15,35 @@ $userRole = $_SESSION['user_role'];
 // Define the sidebar links based on user roles
 $sidebarLinks = array(
   'president' => array(
-    'dashboard.php' => array(
-      'icon' => 'bx bx-grid-alt',
-      'label' => 'Dashboard'
-    ),
-    'residents.php' => array(
-      'icon' => 'bx bx-user',
-      'label' => 'Residents'
-    ),
-    'meeting_records.php' => array(
-      'icon' => 'bx bx-file',
-      'label' => 'Meeting Records'
-    ),
-    'account.php' => array(
-      'icon' => 'bx bxs-user-account',
-      'label' => 'Account'
-    ),
-    'logout.php' => array(
-      'icon' => 'bx bx-power-off',
-      'label' => 'Logout'
-    )
-  ),
+      '../admins/dashboard.php' => array(
+          'icon' => 'bx bx-grid-alt',
+          'label' => 'Dashboard'
+      ),
+      '../crud/residents.php' => array(
+          'icon' => 'bx bx-user',
+          'label' => 'Residents'
+      ),
+      '../admins/announcement.php' => array(
+          'icon' => 'bx bx-file',
+          'label' => 'Post'
+      ),
+      '../admins/booking.php' => array(
+          'icon' => 'bx bx-calendar',
+          'label' => 'Booking'
+      ),
+      '../admins/account.php' => array(
+          'icon' => 'bx bxs-user-account',
+          'label' => 'Pending Account'
+      ),
+      '../map/index.php' => array(
+        'icon' => 'bx bx-map',
+        'label' => 'Map'
+      ),
+      '../admins/logout.php' => array(
+          'icon' => 'bx bx-power-off',
+          'label' => 'Logout'
+      )
+      ),
   'vicepresident' => array(
     'dashboard.php' => array(
       'icon' => 'bx bx-grid-alt',
@@ -82,23 +90,23 @@ $sidebarLinks = array(
 function generateSidebarLinks($links)
 {
   global $userRole;
-  $output = '';
+  $output = '<ul class="nav flex-column ' . $userRole . '">';
   foreach ($links[$userRole] as $url => $link) {
     $activeClass = '';
     if (basename($_SERVER['PHP_SELF']) === $url) {
       $activeClass = 'active';
     }
     $output .= '<li class="nav-item">
-        <a href="' . $url . '" class="nav-link ' . $userRole . ' ' . $activeClass . '">
+        <a href="' . $url . '" class="nav-link ' . $activeClass . '">
           <i class="' . $link['icon'] . '"></i>
           <span class="links_name">' . $link['label'] . '</span>
         </a>
       </li>';
   }
+  $output .= '</ul>';
   return $output;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,40 +122,34 @@ function generateSidebarLinks($links)
   <title>Document</title>
 </head>
 <body>
-  
   <div class="sidenav">
     <div class="logo-details">
       <i class="bx bx-home"></i>
       <span class="logo_name">Garden Villas III</span>
     </div>
-    <ul class="nav flex-column">
     <?php echo generateSidebarLinks($sidebarLinks); ?>
-  </ul>
   </div>
   <div class="home-section">
-  <i class="bx bx-menu" id="btn"></i>
-  <div class="text fw-bold" style="margin-left: 70px; margin-top:25px"><?php echo ucfirst(basename($_SERVER['PHP_SELF'], '.php')); ?></div>
-</div>
+    <i class="bx bx-menu" id="btn"></i>
+    <div class="text fw-bold" style="margin-left: 70px; margin-top:25px"><?php echo ucfirst(basename($_SERVER['PHP_SELF'], '.php')); ?></div>
+  </div>
 
-
-  
   <script>
-   let sidebar = document.querySelector(".sidenav");
-let menuBtn = document.querySelector("#btn");
+    let sidebar = document.querySelector(".sidenav");
+    let menuBtn = document.querySelector("#btn");
 
-menuBtn.addEventListener("click", () => {
-  sidebar.classList.toggle("minimized");
-  menuBtnChange();
-});
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("minimized");
+      menuBtnChange();
+    });
 
-function menuBtnChange() {
-  if (sidebar.classList.contains("minimized")) {
-    menuBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-  } else {
-    menuBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-  }
-}
-
+    function menuBtnChange() {
+      if (sidebar.classList.contains("minimized")) {
+        menuBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+      } else {
+        menuBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+      }
+    }
   </script>
 </body>
 </html>

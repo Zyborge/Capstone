@@ -1,107 +1,5 @@
-<?php
-require('../configs/config.php');
-include('sidebarcontent.php')
-?>
-<?php
-// Database connection
-$dsn = "mysql:host=localhost;dbname=gardenvillas_db;charset=utf8mb4";
-$username = "root";
-$password = "";
-
-try {
-    $pdo = new PDO($dsn, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error: " . $e->getMessage());
-}
-
-// Check if the form is submitted for adding a new user
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
-    $lastname = $_POST['lastname'];
-    $firstname = $_POST['firstname'];
-    $middlename = $_POST['middlename'];
-    $gender = $_POST['gender'];
-    $phase = $_POST['phase'];
-    $block = $_POST['block'];
-    $lot = $_POST['lot'];
-    $street = $_POST['street'];
-    $birthdate = $_POST['birthdate'];
-    $age = $_POST['age'];
-    $contactnumber = $_POST['contactnumber'];
-    $maritalstatus = $_POST['maritalstatus'];
-    $citizenship = $_POST['citizenship'];
-
-    $stmt = $pdo->prepare("INSERT INTO residents (lastname, firstname, middlename, gender, phase, block, lot, street, birthdate, age, contactnumber, maritalstatus, citizenship) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$lastname, $firstname, $middlename, $gender, $phase, $block, $lot, $street, $birthdate, $age, $contactnumber, $maritalstatus, $citizenship]);
-
-    // Refresh the page after adding a new user
-    header('Location: residents.php');
-    exit;
-}
-
-// Check if the form is submitted for updating a user
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_id'])) {
-    $id = $_POST['edit_id'];
-    $lastname = $_POST['edit_lastname'];
-    $firstname = $_POST['edit_firstname'];
-    $middlename = $_POST['edit_middlename'];
-    $gender = $_POST['edit_gender'];
-    $phase = $_POST['edit_phase'];
-    $block = $_POST['edit_block'];
-    $lot = $_POST['edit_lot'];
-    $street = $_POST['edit_street'];
-    $birthdate = $_POST['edit_birthdate'];
-    $age = $_POST['edit_age'];
-    $contactnumber = $_POST['edit_contactnumber'];
-    $maritalstatus = $_POST['edit_maritalstatus'];
-    $citizenship = $_POST['edit_citizenship'];
-
-    $stmt = $pdo->prepare("UPDATE residents SET lastname=?, firstname=?, middlename=?, gender=?, phase=?, block=?, lot=?, street=?, birthdate=?, age=?, contactnumber=?, maritalstatus=?, citizenship=? WHERE id=?");
-    $stmt->execute([$lastname, $firstname, $middlename, $gender, $phase, $block, $lot, $street, $birthdate, $age, $contactnumber, $maritalstatus, $citizenship, $id]);
-
-    // Refresh the page after updating the user
-    header('Location: residents.php');
-    exit;
-}
-
-// Check if the delete parameter is present in the URL
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-
-    $stmt = $pdo->prepare("DELETE FROM residents WHERE id=?");
-    $stmt->execute([$id]);
-
-    // Refresh the page after deleting the user
-    header('Location: residents.php');
-    exit;
-}
-
-// Retrieve all users from the database
-// Pagination variables
-$limit = isset($_GET['limit']) ? $_GET['limit'] : 10; // Number of records to display per page
-
-// Get the search query from the URL parameter
-$searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
-
-// Calculate total number of pages
-$stmt = $pdo->prepare("SELECT COUNT(*) as total FROM residents WHERE lastname LIKE :search");
-$stmt->bindValue(':search', "%{$searchQuery}%", PDO::PARAM_STR);
-$stmt->execute();
-$totalRecords = $stmt->fetchColumn();
-$totalPages = ceil($totalRecords / $limit);
-
-// Get current page from the query string
-$currentpage = isset($_GET['page']) ? $_GET['page'] : 1;
-$start = ($currentpage - 1) * $limit;
-
-// Retrieve records for the current page with search query
-$stmt = $pdo->prepare("SELECT * FROM residents WHERE lastname LIKE :search LIMIT :start, :limit");
-$stmt->bindValue(':search', "%{$searchQuery}%", PDO::PARAM_STR);
-$stmt->bindParam(':start', $start, PDO::PARAM_INT);
-$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-$stmt->execute();
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+<?php 
+require('residents-con.php')
 ?>
 
 <!DOCTYPE html>
@@ -143,19 +41,21 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <!-- Button to trigger the modal for adding a new user -->
         <div class="table-controls d-flex justify-content-end mb-3">
-  <div class="d-flex align-items-center">
-    <button type="button" class="btn btn-primary me-3" id="add" data-bs-toggle="modal" data-bs-target="#addModal">
-      <i class="bx bx-plus"></i> Resident
-    </button>
+    <div class="d-flex align-items-center">
+        <button type="button" class="btn btn-primary me-3" id="add" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="bx bx-plus"></i> Resident
+        </button>
+
+        <button type="button" id="delete-selected-button" class="btn btn-danger">
+            <i class="bx bx-trash"></i> Delete
+        </button>
+        
+        <button type="button" id="edit-selected-button" class="btn btn-primary" style="margin-left: 15px;" >
+        <i class="bx bx-edit"></i> Edit</button>
 
 
-
-    <button type="button" id="delete-all-button" class="btn btn-danger">
-      <i class="bx bx-trash"></i> Delete
-    </button>
-
-    <input type="text" class="form-control ms-3" id="searchInput" placeholder="Search">
-  </div>
+        <input type="text" class="form-control ms-3" id="searchInput" placeholder="Search">
+    </div>
 </div>
 
     <div class="table-container">
@@ -163,7 +63,6 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <thead class="bg-danger">
                 <tr class='text-center'>
                 <th>
-  <input type="checkbox" id="select-all-checkbox">
 </th>
 
                     <th>ID</th>
@@ -185,7 +84,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($users as $user) : ?>
                     <tr>
                     <td>
-  <input type="checkbox" class="row-checkbox">
+                    <input type="checkbox" class="record-checkbox" value="<?= $user['id']; ?>">
 </td>
 
                         <td><?= $user['id']; ?></td>
@@ -352,7 +251,22 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </ul>
 </div>
 
-
+<div class="modal fade" id="editSelectedModal" tabindex="-1" aria-labelledby="editSelectedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSelectedModalLabel">Edit Selected Records</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Selected records will be appended here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
         <!-- Modal for adding a new user -->
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -558,67 +472,116 @@ function menuBtnChange() {
 
     window.addEventListener('resize', adjustSidebarHeight);
   </script>  
-  
   <script>
-  const selectAllCheckbox = document.getElementById('select-all-checkbox');
-  const rowCheckboxes = document.getElementsByClassName('row-checkbox');
-  const deleteAllButton = document.getElementById('delete-all-button');
-  const editAllButton = document.getElementById('edit-all-button');
+    // Select All checkbox functionality
+    $('#select-all').on('click', function() {
+        $('.record-checkbox').prop('checked', this.checked);
+    });
 
-  selectAllCheckbox.addEventListener('change', function () {
-    for (let i = 0; i < rowCheckboxes.length; i++) {
-      rowCheckboxes[i].checked = this.checked;
-    }
-  });
+    // Handle the "Delete Selected" button click
+    $('#delete-selected-button').on('click', function() {
+        const selectedIds = [];
+        $('.record-checkbox:checked').each(function() {
+            selectedIds.push($(this).val());
+        });
 
-  function updateSelectAllCheckbox() {
-    let allChecked = true;
-    for (let i = 0; i < rowCheckboxes.length; i++) {
-      if (!rowCheckboxes[i].checked) {
-        allChecked = false;
-        break;
-      }
-    }
-    selectAllCheckbox.checked = allChecked;
-  }
+        if (selectedIds.length > 0) {
+            // Show a confirmation dialog using SweetAlert2
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete selected!',
+                cancelButtonText: 'No, cancel',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Perform the actual deletion using an AJAX request
+                    $.ajax({
+                        type: 'POST',
+                        url: '../admin/delete-selected.php', // Modify this URL to your deletion script
+                        data: { ids: selectedIds },
+                        success: function(response) {
+                            // Reload the page or update the table after successful deletion
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error if necessary
+                            console.error(error);
+                        },
+                    });
+                }
+            });
+        } else {
+            // Display a message if no records are selected
+            Swal.fire('No records selected', 'Please select records to delete.', 'warning');
+        }
+    });
+    $(document).ready(function() {
+    // Edit button click event
+    $('.record-edit-button').on('click', function() {
+        const userId = $(this).data('id');
+        $(`#editModal${userId}`).modal('show');
+    });
 
-  for (let i = 0; i < rowCheckboxes.length; i++) {
-    rowCheckboxes[i].addEventListener('change', updateSelectAllCheckbox);
-  }
+    // Edit selected records using checkboxes
+    $('#edit-selected-button').on('click', function() {
+        const selectedIds = [];
 
-  deleteAllButton.addEventListener('click', deleteSelected);
-  editAllButton.addEventListener('click', editSelected);
+        // Loop through each selected checkbox
+        $('.record-checkbox:checked').each(function() {
+            selectedIds.push($(this).val());
+        });
 
-  function deleteSelected() {
-  // Check if any items are selected
-  const selectedItems = document.querySelectorAll('.row-checkbox:checked');
-  if (selectedItems.length === 0) {
-    alert('No items selected for deletion.');
-    return;
-  }
+        if (selectedIds.length > 0) {
+            // Show the modal for editing selected records
+            const editModal = $('#editSelectedModal');
+            editModal.modal('show');
 
-  // Show confirmation popup
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'You are about to delete the selected records.',
-    icon: 'warning',
-    
-    showCancelButton: true,
-    confirmButtonText: 'Delete',
-    cancelButtonText: 'Cancel',
-    reverseButtons: true,
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Delete selected items
-      // Implement your delete functionality here
+            // Clear previous content and add selected records
+            const modalBody = editModal.find('.modal-body');
+            modalBody.empty();
 
-      Swal.fire('Deleted!', 'The selected records have been deleted.', 'success');
-    }
-  });
-}
+            // Loop through selected IDs and add user data
+            selectedIds.forEach(function(userId) {
+                const userData = $(`#editModal${userId}`).html();
+                modalBody.append(userData);
+                modalBody.append('<hr>');
+            });
+
+            // Enable form submission inside the modal
+            editModal.find('form').off('submit').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                const formData = $(this).serialize();
+
+                // Send AJAX request to update selected records
+                $.ajax({
+                    url: 'residents-con.php', // Replace with the appropriate PHP script
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        // Handle the success response
+                        // You can display an alert or perform any other actions here
+                        console.log(response);
+                    },
+                    error: function() {
+                        // Handle the error
+                        console.error('An error occurred while updating records.');
+                    }
+                });
+            });
+        } else {
+            console.warn('No records selected for editing.');
+        }
+    });
+});
+
 
 </script>
 
+
+  
 
 </body>
 </html>

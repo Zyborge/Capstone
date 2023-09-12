@@ -15,68 +15,72 @@ $userRole = $_SESSION['user_role'];
 // Define the sidebar links based on user roles
 $sidebarLinks = array(
     'president' => array(
-        'dashboard.php' => array(
+        '../admins/dashboard.php' => array(
             'icon' => 'bx bx-grid-alt',
             'label' => 'Dashboard'
         ),
-        'residents.php' => array(
+        '../crud/residents.php' => array(
             'icon' => 'bx bx-user',
             'label' => 'Residents'
         ),
-        'announcement.php' => array(
+        '../admins/announcement.php' => array(
             'icon' => 'bx bx-file',
             'label' => 'Post'
         ),
-        'booking.php' => array(
+        '../admins/booking.php' => array(
             'icon' => 'bx bx-calendar',
             'label' => 'Booking'
         ),
-        'account.php' => array(
+        '../admins/account.php' => array(
             'icon' => 'bx bxs-user-account',
             'label' => 'Pending Account'
         ),
-        'logout.php' => array(
+        '../map/index.php' => array(
+          'icon' => 'bx bx-map',
+          'label' => 'Map'
+        ),
+        '../admins/logout.php' => array(
             'icon' => 'bx bx-power-off',
             'label' => 'Logout'
         )
         ),
     
   'vicepresident' => array(
-    'dashboard.php' => array(
+    '../admins/dashboard.php' => array(
       'icon' => 'bx bx-grid-alt',
       'label' => 'Dashboard'
     ),
-    'financial_reports.php' => array(
+    '../admins/financial_reports.php' => array(
       'icon' => 'bx bx-chart',
       'label' => 'Financial Reports'
     ),
-    'account.php' => array(
+    '../admins/account.php' => array(
       'icon' => 'bx bxs-user-account',
       'label' => 'Account'
     ),
-    'logout.php' => array(
+    '../admins/logout.php' => array(
       'icon' => 'bx bx-power-off',
       'label' => 'Logout'
     )
   ),
   'secretary' => array(
-    'dashboard.php' => array(
+    '../admins/dashboard.php' => array(
       'icon' => 'bx bx-grid-alt',
       'label' => 'Dashboard'
     ),
-    'meeting_records.php' => array(
+    '../admins/meeting_records.php' => array(
       'icon' => 'bx bx-file',
       'label' => 'Meeting Records'
     ),
-    'residents.php' => array(
+    '../admins/residents.php' => array(
       'icon' => 'bx bx-user',
       'label' => 'Residents'
     ),
-    'account.php' => array(
+    '../admins/account.php' => array(
       'icon' => 'bx bxs-user-account',
       'label' => 'Account'
     ),
-    'logout.php' => array(
+    '../admins/logout.php' => array(
       'icon' => 'bx bx-power-off',
       'label' => 'Logout'
     )
