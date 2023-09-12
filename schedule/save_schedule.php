@@ -19,31 +19,29 @@ $resident_id = $_SESSION['resident_id'];
 $status = 'pending';
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    $response = array('status' => 'error', 'message' => 'Error: No data to save.');
+    $response = array('status' => 'error', 'message' => 'No data to save.');
 } else {
     // Get the current time in the desired format (Philippine time)
     $currentTime = date("h:i A");
 
     // Check if the start_time is earlier than the current time
     if ($start_date === date("Y-m-d") && $start_time < $currentTime) {
-        $response = array('status' => 'error', 'message' => 'Error: Start time cannot be earlier than the current time.');
+        $response = array('status' => 'error', 'message' => 'Start time cannot be earlier than the current time.');
     }
     // Check if the end_time is earlier than the current time
     elseif ($end_date === date("Y-m-d") && $end_time < $currentTime) {
-        $response = array('status' => 'error', 'message' => 'Error: End time cannot be earlier than the current time.');
+        $response = array('status' => 'error', 'message' => 'End time cannot be earlier than the current time.');
     }
     // Check if the end_date is before the start_date
     elseif ($end_date < $start_date) {
-        $response = array('status' => 'error', 'message' => 'Error: End date cannot be before the start date.');
+        $response = array('status' => 'error', 'message' => 'End date cannot be before the start date.');
     } else {
         // Check if the desired time slot overlaps with existing bookings for the venue
-       // Check if the desired time slot overlaps with existing bookings for the venue
-        $availabilitySql = "SELECT * FROM `bookings` WHERE `venue` = ? AND `resident_id` != ? AND ((`start_date` = ? AND `end_time` > ?) OR (`end_date` = ? AND `start_time` < ?) OR (`start_date` < ? AND `end_date` > ?))";
+        $availabilitySql = "SELECT * FROM `bookings` WHERE `venue` = ? AND ((`start_date` = ? AND `end_time` > ?) OR (`end_date` = ? AND `start_time` < ?) OR (`start_date` < ? AND `end_date` > ?))";
         $stmt = $conn->prepare($availabilitySql);
-        $stmt->bind_param("ssssssss", $venue, $resident_id, $start_date, $start_time, $end_date, $end_time, $start_date, $end_date);
+        $stmt->bind_param("sssssss", $venue, $start_date, $start_time, $end_date, $end_time, $start_date, $end_date);
         $stmt->execute();
         $availabilityResult = $stmt->get_result();
-
 
         if ($availabilityResult && $availabilityResult->num_rows > 0) {
             while ($row = $availabilityResult->fetch_assoc()) {
@@ -69,9 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             }
         }
 
-        // Format the start_time and end_time to display AM or PM
-        $start_time_formatted = date("h:i A", strtotime($start_time));
-        $end_time_formatted = date("h:i A", strtotime($end_time));
+// Format the start_time and end_time to display AM or PM
+$start_time_formatted = date("h:i A", strtotime($start_time));
+$end_time_formatted = date("h:i A", strtotime($end_time));
 
         // Insert the schedule using prepared statement to prevent SQL injection
         $insertSql = "INSERT INTO `bookings` (`title`, `description`, `start_date`, `end_date`, `start_time`, `end_time`, `venue`, `resident_id`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

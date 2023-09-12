@@ -56,6 +56,9 @@ while ($row = $bookingsResult->fetch_assoc()) {
 
     <link rel="stylesheet" href="./fullcalendar/lib/main.min.css">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
 
 </head>
 <?php include('../navbar/nav.php'); ?>
@@ -94,11 +97,11 @@ while ($row = $bookingsResult->fetch_assoc()) {
             </div>
             <div class="form-group mb-2">
                 <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date" name="start-date">
+                <input type="date" id="start-date" name="start-date" max="9999-12-31" min="1970-01-01">
             </div>
             <div class="form-group mb-2">
                 <label for="end-date">End Date:</label>
-                <input type="date" id="end-date" name="end-date">
+                <input type="date" id="end-date" name="end-date" max="9999-12-31">
             </div>
             <div class="form-group mb-2">
                 <label for="start-time">Start Time:</label>
@@ -267,68 +270,81 @@ while ($row = $bookingsResult->fetch_assoc()) {
     });
 </script>
 <script>
-    $(document).ready(function() {
-        // Handle form submission using AJAX
-        $("#schedule-form").submit(function(e) {
-            e.preventDefault(); // Prevent the form from redirecting
+  $(document).ready(function() {
+    // Create an alerts container
+    var alertsContainer = $('<div class="alerts-container"></div>');
+    $('body').append(alertsContainer);
 
-            // Serialize the form data
-            var formData = $(this).serialize();
+    // Handle form submission using AJAX
+    $("#schedule-form").submit(function(e) {
+        e.preventDefault(); // Prevent the form from redirecting
 
-            // Make an AJAX POST request to the server
-            $.ajax({
-                url: "save_schedule.php", // URL to handle form data on the server
-                type: "POST",
-                data: formData,
-                dataType: "json", // Expect JSON response from the server
-                success: function(response) {
-                    // Handle the response from the server
-                    if (response.status === "success") {
-                        showCustomPopup(response.message, "alert-success", "success-popup");
-                    } else {
-                        showCustomPopup( response.message, "alert-danger", "error-popup");
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    // Handle any error that occurs during the AJAX request
-                    showCustomPopup("An error occurred during the AJAX request.", "alert-danger", "error-popup");
-                    console.error(textStatus, errorThrown);
+        // Serialize the form data
+        var formData = $(this).serialize();
+
+        // Make an AJAX POST request to the server
+        $.ajax({
+            url: "save_schedule.php", // URL to handle form data on the server
+            type: "POST",
+            data: formData,
+            dataType: "json", // Expect JSON response from the server
+            success: function(response) {
+                // Handle the response from the server
+                if (response.status === "success") {
+                    showCustomPopup(response.message, "alert-success");
+                    $("#schedule-form")[0].reset(); // Clear the form
+                } else {
+                    showCustomPopup(response.message, "alert-danger");
                 }
-            });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle any error that occurs during the AJAX request
+                showCustomPopup("An error occurred during the AJAX request.", "alert-danger");
+                console.error(textStatus, errorThrown);
+            }
         });
-function showCustomPopup(message, alertType) {
-    var modalElement = $(".custom-popup");
-    
-    var modalContent = modalElement.find(".modal-content");
-    var modalBody = modalElement.find(".modal-body");
-    var iconElement = modalBody.find(".icon-class");
-    var modalMessage = modalBody.find(".modal-title");
-    var closeButton = modalElement.find(".btn-secondary");
+    });
+    function showCustomPopup(message, alertType) {
+    // Determine the icon class based on the alertType
+    var iconClass = (alertType === 'alert-success') ? 'bx bx-check-circle bx-md' : 'bx bx-error-circle bx-md';
 
-    // Apply the icon class based on the alertType
-    if (alertType === "alert-success") {
-        iconElement.attr("class", "icon-class bx bxs-check-circle text-success");
-    } else {
-        iconElement.attr("class", "icon-class bx bxs-error-circle text-danger");
-    }
+    // Create an alert element
+    var alert = $('<div class="alert ' + alertType + ' alert-dismissible fade show d-flex align-items-center animate__animated animate__shakeX" role="alert">' +
+        '<i class="' + iconClass + ' mr-2"></i>' +
+        '<strong class="flex-grow-1">' + message + '</strong>' +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
 
-    // Set the message
-    modalMessage.text(message);
+    // Add the alert to the alerts container
+    alertsContainer.append(alert);
 
-    modalElement.modal("show");
+    // Set position to lower right
+    alert.css({
+        'position': 'fixed',
+        'bottom': '20px',
+        'right': '20px',
+        'z-index': '1000'
+    });
+
+    // Automatically remove the alert after a few seconds
+    setTimeout(function() {
+        alert.alert('close');
+        // Refresh the page only on success
+        if (alertType === 'alert-success') {
+            location.reload();
+        }
+    }, 5000);
 
     // Add event listener for the close button
-    closeButton.on("click", function() {
-        modalElement.modal("hide");
-        
-        // Check if the response was successful
-        if (alertType === "alert-success") {
-            // Refresh the page after closing the modal
-            window.location.reload();
+    alert.find('.btn-close').on('click', function() {
+        // Refresh the page only on success
+        if (alertType === 'alert-success') {
+            location.reload();
         }
     });
 }
-    });
+
+  });
+
 </script>
 
 

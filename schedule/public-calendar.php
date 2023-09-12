@@ -42,8 +42,15 @@ while ($row = $bookingsResult->fetch_assoc()) {
         body {
             height: 100%;
             width: 100%;
-            background-color: #4CAF50 !important; 
             font-family: Apple Chancery, cursive;
+            font-family: Arial, sans-serif;
+            background-image: url(../backgrounds/bfa.svg);
+            background-size: cover; /* Cover the entire page */
+            background-repeat: no-repeat;
+           
+            align-items: center;
+            
+        
         }
 
         .btn-info.text-light:hover,
@@ -69,7 +76,6 @@ while ($row = $bookingsResult->fetch_assoc()) {
             width: auto;
             border-radius: 10px;
             background-color: rgba(255, 255, 255, 0.5); /* Set the background color with an alpha value */
-            backdrop-filter: blur(10px); /* Apply a blur effect to create the glass effect */
             }
             .event-details {
     margin-bottom: 20px;
